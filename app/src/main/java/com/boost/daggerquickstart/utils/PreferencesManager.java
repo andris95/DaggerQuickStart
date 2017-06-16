@@ -8,23 +8,22 @@ public class PreferencesManager {
     public static final String PREF_NAME = "PREFERENCES";
     public static final String EXTRA_DATA = "EXTRA_DATA";
 
+    private static PreferencesManager mInstance;
     private static SharedPreferences mSharedPreferences;
-    private static Context mContext = null;
 
-    private SharedPreferences getSharedPreferences() {
-        if (mSharedPreferences != null) {
-            return mSharedPreferences;
-        }
-        mSharedPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        return mSharedPreferences;
+    private PreferencesManager(Context context) {
+        mSharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
     public static void init(Context context) {
-        mContext = context.getApplicationContext();
-        mSharedPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        mInstance = new PreferencesManager(context);
     }
 
-    public static SharedPreferences getInstance() {
+    public static PreferencesManager getInstance() {
+        return mInstance;
+    }
+
+    private SharedPreferences getSharedPreferences() {
         return mSharedPreferences;
     }
 
