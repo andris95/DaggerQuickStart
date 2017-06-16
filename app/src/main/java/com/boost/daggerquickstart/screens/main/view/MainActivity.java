@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         //mMainPresenter = new MainPresenterImpl(new SPDataSource(MainActivity.this));
-        DaggerQuickstartApplication.getComponent().inject(this);
+        DaggerQuickstartApplication.dependencyGraph.initMainComponent().inject(this);
         mMainPresenter.attach(this);
         mMainPresenter.loadData();
         showProgress();

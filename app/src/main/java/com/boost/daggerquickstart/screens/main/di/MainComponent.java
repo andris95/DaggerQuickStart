@@ -1,7 +1,12 @@
 package com.boost.daggerquickstart.screens.main.di;
 
-import dagger.Component;
+import com.boost.daggerquickstart.app.AppModule;
+import com.boost.daggerquickstart.screens.main.view.MainActivity;
 
-@Component.Builder
-public class MainComponent {
+import dagger.Component;
+import dagger.Subcomponent;
+
+@Subcomponent(modules = MainModule.class)
+public interface MainComponent {
+    void inject(MainActivity mainActivity);
 }

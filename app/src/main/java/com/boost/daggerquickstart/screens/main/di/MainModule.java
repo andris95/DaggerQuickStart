@@ -11,7 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class MainPresenterModule {
+public class MainModule {
 
     @Provides
     public MainPresenter provideMainPresenter(DataSource dataSource) {

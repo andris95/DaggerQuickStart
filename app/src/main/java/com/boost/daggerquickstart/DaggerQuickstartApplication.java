@@ -2,28 +2,14 @@ package com.boost.daggerquickstart;
 
 import android.app.Application;
 
-import com.boost.daggerquickstart.app.AppComponent;
-import com.boost.daggerquickstart.app.AppModule;
-import com.boost.daggerquickstart.app.DaggerAppComponent;
-import com.boost.daggerquickstart.screens.main.di.MainPresenterModule;
+import com.boost.daggerquickstart.app.DependencyGraph;
 
 public class DaggerQuickstartApplication extends Application {
-    private static AppComponent sAppComponent;
+    public static DependencyGraph dependencyGraph;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sAppComponent = buildAppComponent();
-    }
-
-    public static AppComponent getComponent() {
-        return sAppComponent;
-    }
-
-    protected AppComponent buildAppComponent() {
-        return DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .mainPresenterModule(new MainPresenterModule())
-                .build();
+        dependencyGraph = new DependencyGraph(this);
     }
 }
