@@ -1,10 +1,8 @@
-package com.boost.daggerquickstart;
+package com.boost.daggerquickstart.view.main;
 
-import android.os.Handler;
-
+import com.boost.daggerquickstart.BaseView;
 import com.boost.daggerquickstart.data.DataRepository;
 import com.boost.daggerquickstart.data.DataSource;
-import com.boost.daggerquickstart.utils.PreferencesManager;
 
 public class MainPresenter implements MainContract.Presenter {
     private String TAG = MainPresenter.class.getSimpleName();
@@ -20,14 +18,7 @@ public class MainPresenter implements MainContract.Presenter {
         mDataRepository.saveData(data, new DataSource.SaveDataCallback() {
             @Override
             public void onDataSaved(final String data) {
-                PreferencesManager.getInstance().saveData(data);
-                Handler h = new Handler();
-                h.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.onDataSaved(data);
-                    }
-                }, 1000);
+                mView.onDataSaved(data);
             }
 
             @Override
@@ -42,7 +33,7 @@ public class MainPresenter implements MainContract.Presenter {
     public void loadData() {
         mDataRepository.loadData(new DataSource.LoadDataCallback() {
             @Override
-            public void onDataLoaded(String data) {
+            public void onDataLoaded(final String data) {
                 mView.onDataLoaded(data);
             }
 
@@ -51,5 +42,15 @@ public class MainPresenter implements MainContract.Presenter {
                 mView.onError();
             }
         });
+    }
+
+    @Override
+    public void onAttachView(BaseView view) {
+        mView = (MainContract.View) view;
+    }
+
+    @Override
+    public void onDetachView() {
+        mView = null;
     }
 }
