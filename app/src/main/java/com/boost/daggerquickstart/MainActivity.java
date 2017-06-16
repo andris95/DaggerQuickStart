@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickSave() {
         String data = edtData.getText().toString();
         makeToast(data);
+
     }
 
     private void makeToast(String text) {
