@@ -5,12 +5,12 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
-public class PreferencesManager {
-    public static final String TAG = PreferencesManager.class.getSimpleName();
+public class PreferencesManagerSingleton {
+    public static final String TAG = PreferencesManagerSingleton.class.getSimpleName();
     public static final String PREF_NAME = "PREFERENCES";
     public static final String EXTRA_DATA = "EXTRA_DATA";
 
-    private static PreferencesManager mInstance;
+    private static PreferencesManagerSingleton mInstance;
     private static SharedPreferences mSharedPreferences;
 
     private String mKeyToListen;
@@ -23,16 +23,16 @@ public class PreferencesManager {
         }
     };
 
-    private PreferencesManager(Context context) {
+    private PreferencesManagerSingleton(Context context) {
         mSharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         mSharedPreferences.registerOnSharedPreferenceChangeListener(mOnSharedPreferenceChangeListener);
     }
 
     public static void init(Context context) {
-        mInstance = new PreferencesManager(context);
+        mInstance = new PreferencesManagerSingleton(context);
     }
 
-    public static PreferencesManager getInstance() {
+    public static PreferencesManagerSingleton getInstance() {
         return mInstance;
     }
 

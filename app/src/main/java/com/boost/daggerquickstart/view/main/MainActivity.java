@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mMainPresenter = new MainPresenter(this, new SPDataSource(MainActivity.this));
         mMainPresenter.loadData();
         showProgress();
+
     }
 
     @OnClick(R.id.btn_save)
