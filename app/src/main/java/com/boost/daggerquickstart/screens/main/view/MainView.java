@@ -6,5 +6,6 @@ public interface MainView extends BaseView {
     void onDataSaved(String data);
     void onDataLoaded(String data);
     void onError();
-    void onError(int messageRes);
+    void onLoadDataError();
+    void onSaveDataError();
 }

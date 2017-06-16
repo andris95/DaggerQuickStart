@@ -9,10 +9,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.boost.daggerquickstart.DaggerQuickstartApplication;
 import com.boost.daggerquickstart.R;
-import com.boost.daggerquickstart.data.SPDataSource;
+import com.boost.daggerquickstart.app.AppComponent;
 import com.boost.daggerquickstart.screens.main.presenter.MainPresenter;
-import com.boost.daggerquickstart.screens.main.presenter.MainPresenterImpl;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @BindView(R.id.pb)
     ProgressBar pb;
 
-    private MainPresenter mMainPresenter;
+    @Inject MainPresenter mMainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Log.d(TAG, "onCreate: ");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mMainPresenter = new MainPresenterImpl(this, new SPDataSource(MainActivity.this));
+        //mMainPresenter = new MainPresenterImpl(new SPDataSource(MainActivity.this));
+        DaggerQuickstartApplication.getComponent().inject(this);
         mMainPresenter.loadData();
         showProgress();
 
@@ -79,8 +82,14 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void onError(int messageRes) {
-        makeToast(messageRes);
+    public void onLoadDataError() {
+        makeToast("onLoadError");
+        hideProgress();
+    }
+
+    @Override
+    public void onSaveDataError() {
+        makeToast("onSaveDataError");
         hideProgress();
     }
 

@@ -3,31 +3,24 @@ package com.boost.daggerquickstart.screens.main.presenter;
 import android.text.TextUtils;
 
 import com.boost.daggerquickstart.BaseView;
-import com.boost.daggerquickstart.R;
 import com.boost.daggerquickstart.data.DataSource;
-import com.boost.daggerquickstart.data.SPDataSource;
 import com.boost.daggerquickstart.screens.main.view.MainView;
 
 public class MainPresenterImpl implements MainPresenter {
     private String TAG = MainPresenter.class.getSimpleName();
     private MainView mView;
-    private SPDataSource mSPDataSource;
+    private DataSource mDataSource;
 
-    public MainPresenterImpl(MainView view) {
-        mView = view;
-    }
-
-    public MainPresenterImpl(MainView view, SPDataSource SPDataSource) {
-        mView = view;
-        mSPDataSource = SPDataSource;
+    public MainPresenterImpl(DataSource dataSource) {
+        mDataSource = dataSource;
     }
 
     @Override
     public void saveData(final String data) {
         if (TextUtils.isEmpty(data)) {
-            mView.onError(R.string.error_data_empty);
+            mView.onSaveDataError();
         } else {
-            mSPDataSource.saveData(data, new DataSource.SaveDataCallback() {
+            mDataSource.saveData(data, new DataSource.SaveDataCallback() {
                 @Override
                 public void onDataSaved(final String data) {
                     mView.onDataSaved(data);
@@ -43,7 +36,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void loadData() {
-        mSPDataSource.loadData(new DataSource.LoadDataCallback() {
+        mDataSource.loadData(new DataSource.LoadDataCallback() {
             @Override
             public void onDataLoaded(final String data) {
                 mView.onDataLoaded(data);

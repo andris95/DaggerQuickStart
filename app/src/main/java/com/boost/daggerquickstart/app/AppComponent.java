@@ -1,4 +1,4 @@
-package com.boost.daggerquickstart;
+package com.boost.daggerquickstart.app;
 
 import com.boost.daggerquickstart.screens.main.view.MainActivity;
 
@@ -6,8 +6,8 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
+@Component(modules = {AppModule.class, MainPresenterModule.class})
 @Singleton
-@Component
-public interface TestComponent {
+public interface AppComponent {
     void inject(MainActivity activity);
 }
