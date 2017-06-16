@@ -1,4 +1,4 @@
-package com.boost.daggerquickstart.view.main;
+package com.boost.daggerquickstart.screens.main;
 
 import com.boost.daggerquickstart.BasePresenter;
 import com.boost.daggerquickstart.BaseView;

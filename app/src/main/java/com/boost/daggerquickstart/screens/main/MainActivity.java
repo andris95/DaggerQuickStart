@@ -1,4 +1,4 @@
-package com.boost.daggerquickstart.view.main;
+package com.boost.daggerquickstart.screens.main;
 
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;

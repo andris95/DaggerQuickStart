@@ -1,7 +1,6 @@
-package com.boost.daggerquickstart.view.main;
+package com.boost.daggerquickstart.screens.main;
 
 import com.boost.daggerquickstart.BaseView;
-import com.boost.daggerquickstart.data.DataRepository;
 import com.boost.daggerquickstart.data.DataSource;
 import com.boost.daggerquickstart.data.SPDataSource;
 
