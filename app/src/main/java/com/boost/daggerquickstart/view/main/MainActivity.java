@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.boost.daggerquickstart.R;
+import com.boost.daggerquickstart.data.SPDataSource;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         Log.d(TAG, "onCreate: ");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mMainPresenter = new MainPresenter(this);
+        mMainPresenter = new MainPresenter(this, new SPDataSource(MainActivity.this));
         mMainPresenter.loadData();
         showProgress();
     }
