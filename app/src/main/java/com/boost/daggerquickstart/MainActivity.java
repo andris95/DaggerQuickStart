@@ -23,12 +23,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mMainPresenter = new MainPresenter(this);
+        mMainPresenter.loadData();
     }
 
     @OnClick(R.id.btn_save)
     public void onClickSave() {
         String data = edtData.getText().toString();
-        //makeToast(data);
         mMainPresenter.saveData(data);
     }
 
@@ -39,5 +39,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void onDataSaved(String data) {
         makeToast("saved data: " + data);
+    }
+
+    @Override
+    public void onDataLoaded(String data) {
+        edtData.setText(data);
+    }
+
+    @Override
+    public void onError() {
+        makeToast("onError");
     }
 }
