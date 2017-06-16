@@ -1,6 +1,6 @@
 package com.boost.daggerquickstart;
 
 public interface BasePresenter {
-    void onAttachView(BaseView view);
-    void onDetachView();
+    void attach(BaseView view);
+    void detach();
 }

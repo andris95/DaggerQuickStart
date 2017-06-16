@@ -50,12 +50,12 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void onAttachView(BaseView view) {
+    public void attach(BaseView view) {
         mView = (MainView) view;
     }
 
     @Override
-    public void onDetachView() {
+    public void detach() {
         mView = null;
     }
 }

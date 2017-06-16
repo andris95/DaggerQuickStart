@@ -5,8 +5,7 @@ import android.app.Application;
 import com.boost.daggerquickstart.app.AppComponent;
 import com.boost.daggerquickstart.app.AppModule;
 import com.boost.daggerquickstart.app.DaggerAppComponent;
-import com.boost.daggerquickstart.app.MainPresenterModule;
-import com.boost.daggerquickstart.utils.PreferencesManagerSingleton;
+import com.boost.daggerquickstart.screens.main.di.MainPresenterModule;
 
 public class DaggerQuickstartApplication extends Application {
     private static AppComponent sAppComponent;

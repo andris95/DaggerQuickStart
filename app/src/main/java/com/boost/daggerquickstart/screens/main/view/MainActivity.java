@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.boost.daggerquickstart.DaggerQuickstartApplication;
 import com.boost.daggerquickstart.R;
-import com.boost.daggerquickstart.app.AppComponent;
 import com.boost.daggerquickstart.screens.main.presenter.MainPresenter;
 
 import javax.inject.Inject;
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         ButterKnife.bind(this);
         //mMainPresenter = new MainPresenterImpl(new SPDataSource(MainActivity.this));
         DaggerQuickstartApplication.getComponent().inject(this);
+        mMainPresenter.attach(this);
         mMainPresenter.loadData();
         showProgress();
 
@@ -54,13 +54,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     protected void onStart() {
         super.onStart();
-        mMainPresenter.onAttachView(this);
+        mMainPresenter.attach(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mMainPresenter.onDetachView();
+        mMainPresenter.detach();
     }
 
     @Override

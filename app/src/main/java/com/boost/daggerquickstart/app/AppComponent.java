@@ -1,5 +1,6 @@
 package com.boost.daggerquickstart.app;
 
+import com.boost.daggerquickstart.screens.main.di.MainPresenterModule;
 import com.boost.daggerquickstart.screens.main.view.MainActivity;
 
 import javax.inject.Singleton;

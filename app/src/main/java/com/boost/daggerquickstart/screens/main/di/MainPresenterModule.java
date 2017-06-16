@@ -1,4 +1,4 @@
-package com.boost.daggerquickstart.app;
+package com.boost.daggerquickstart.screens.main.di;
 
 import android.content.Context;
 
