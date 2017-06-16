@@ -1,38 +1,44 @@
-package com.boost.daggerquickstart.screens.main;
+package com.boost.daggerquickstart.screens.main.presenter;
+
+import android.text.TextUtils;
 
 import com.boost.daggerquickstart.BaseView;
+import com.boost.daggerquickstart.R;
 import com.boost.daggerquickstart.data.DataSource;
 import com.boost.daggerquickstart.data.SPDataSource;
+import com.boost.daggerquickstart.screens.main.view.MainView;
 
-public class MainPresenter implements MainContract.Presenter {
+public class MainPresenterImpl implements MainPresenter {
     private String TAG = MainPresenter.class.getSimpleName();
-    private MainContract.View mView;
-    //private DataRepository mDataRepository = new DataRepository();
+    private MainView mView;
     private SPDataSource mSPDataSource;
 
-    public MainPresenter(MainContract.View view) {
+    public MainPresenterImpl(MainView view) {
         mView = view;
     }
 
-    public MainPresenter(MainContract.View view, SPDataSource SPDataSource) {
+    public MainPresenterImpl(MainView view, SPDataSource SPDataSource) {
         mView = view;
         mSPDataSource = SPDataSource;
     }
 
     @Override
     public void saveData(final String data) {
-        mSPDataSource.saveData(data, new DataSource.SaveDataCallback() {
-            @Override
-            public void onDataSaved(final String data) {
-                mView.onDataSaved(data);
-            }
+        if (TextUtils.isEmpty(data)) {
+            mView.onError(R.string.error_data_empty);
+        } else {
+            mSPDataSource.saveData(data, new DataSource.SaveDataCallback() {
+                @Override
+                public void onDataSaved(final String data) {
+                    mView.onDataSaved(data);
+                }
 
-            @Override
-            public void onError() {
-                mView.onError();
-            }
-        });
-
+                @Override
+                public void onError() {
+                    mView.onError();
+                }
+            });
+        }
     }
 
     @Override
@@ -52,7 +58,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onAttachView(BaseView view) {
-        mView = (MainContract.View) view;
+        mView = (MainView) view;
     }
 
     @Override

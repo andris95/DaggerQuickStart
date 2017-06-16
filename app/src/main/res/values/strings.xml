@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DaggerQuickStart</string>
+    <string name="error_data_empty">Data can not be null!</string>
 </resources>

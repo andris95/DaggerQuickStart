@@ -9,15 +9,15 @@ import com.boost.daggerquickstart.utils.PreferencesManagerNonSingleton;
 
 
 public class SPDataSource implements DataSource {
-    private PreferencesManagerNonSingleton mPreferencesManagerNonSingleton;
+    private SharedPreferences mSharedPreferences;
 
     public SPDataSource(Context context) {
-        mPreferencesManagerNonSingleton = new PreferencesManagerNonSingleton(context);
+        mSharedPreferences = context.getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
     }
 
     @Override
     public void loadData(@NonNull final LoadDataCallback loadDataCallback) {
-        final String data = mPreferencesManagerNonSingleton.getSavedData();
+        final String data = mSharedPreferences.getString("KEY_DATA", null);
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
             @Override
@@ -29,7 +29,7 @@ public class SPDataSource implements DataSource {
 
     @Override
     public void saveData(@NonNull final String data, @NonNull final SaveDataCallback saveDataCallback) {
-        mPreferencesManagerNonSingleton.saveData(data);
+        mSharedPreferences.edit().putString("KEY_DATA", data).apply();
         int delay = data.length() * 100;
         Handler h = new Handler();
         h.postDelayed(new Runnable() {

@@ -1,4 +1,4 @@
-package com.boost.daggerquickstart.screens.main;
+package com.boost.daggerquickstart.screens.main.view;
 
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +11,14 @@ import android.widget.Toast;
 
 import com.boost.daggerquickstart.R;
 import com.boost.daggerquickstart.data.SPDataSource;
+import com.boost.daggerquickstart.screens.main.presenter.MainPresenter;
+import com.boost.daggerquickstart.screens.main.presenter.MainPresenterImpl;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View {
+public class MainActivity extends AppCompatActivity implements MainView {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.edt_data)
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         Log.d(TAG, "onCreate: ");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mMainPresenter = new MainPresenter(this, new SPDataSource(MainActivity.this));
+        mMainPresenter = new MainPresenterImpl(this, new SPDataSource(MainActivity.this));
         mMainPresenter.loadData();
         showProgress();
 
@@ -77,6 +79,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
+    public void onError(int messageRes) {
+        makeToast(messageRes);
+        hideProgress();
+    }
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         Log.d(TAG, "onConfigurationChanged: ");
@@ -92,5 +100,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     private void makeToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    private void makeToast(int messageRes) {
+        Toast.makeText(MainActivity.this, messageRes, Toast.LENGTH_SHORT).show();
     }
 }

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:name=".DaggerQuickstartApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".screens.main.MainActivity">
+        <activity android:name=".screens.main.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
